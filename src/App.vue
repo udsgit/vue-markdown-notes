@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="dev | container | p-3 my-3 mx-auto | flex">
+    <!-- Left Side -->
+    <section class="dev | w-1/4 p-3 mr-3">
+      <!-- Search Notes -->
+      <p>Search Notes</p>
+      <NoteList />
+    </section>
+
+    <!--Right side -->
+    <section class="dev | p-3 | flex-grow">
+      <ActiveNote />
+    </section>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import NoteList from "./components/NoteList";
+import ActiveNote from "./components/ActiveNote";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    NoteList,
+    ActiveNote,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.dev {
+  border: 1px solid red;
 }
 </style>
