@@ -1,13 +1,14 @@
 <template>
   <div v-if="activeNote" class="h-full gap-3 | flex flex-col">
     <!-- Editing -->
+
     <div class="flex-1 flex">
       <section class="flex-1">
-        <textarea
-          :value="activeNote.body"
+        <ActiveNoteMd
+          v-model:body="activeNote.body"
+          @blur-note="blurNote"
           class="w-full h-full p-3 | bg-gray-200"
-          @input="updateNote"
-        ></textarea>
+        />
       </section>
       <ActiveNoteHtml
         :body="activeNote.body"
@@ -15,14 +16,22 @@
       />
     </div>
     <!-- Note info & actions -->
-    <section class="flex justify-end">
+    <section class="gap-3 | flex justify-end">
+      <a
+        @click="deleteNote"
+        href="#"
+        class="py-1 px-3 | text-red-700 rounded-md"
+        >Delete note</a
+      >
       <a @click="closeNote" href="#" class="py-1 px-3 | bg-gray-200 rounded-md"
         >Close note</a
       >
     </section>
   </div>
   <div v-else class="h-full | flex justify-center items-center">
-    Please select a note to start editing ✍
+    Please select a note to start editing or&nbsp;
+    <a @click="createNote" class="underline font-bold" href="#">create a note</a
+    >&nbsp;✍
   </div>
 </template>
 
@@ -30,10 +39,12 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import ActiveNoteHtml from "./ActiveNoteHtml";
+import ActiveNoteMd from "./ActiveNoteMd";
 
 export default {
   name: "ActiveNote",
   components: {
+    ActiveNoteMd,
     ActiveNoteHtml,
   },
   setup() {
@@ -49,10 +60,16 @@ export default {
         body: $event.target.value,
       });
     const closeNote = () => store.commit("setActiveNote");
+    const createNote = () => store.dispatch("createNote");
+    const deleteNote = () => store.commit("deleteNote");
+    const blurNote = (value) => !value.length && deleteNote();
     return {
       activeNote,
       updateNote,
       closeNote,
+      createNote,
+      deleteNote,
+      blurNote,
     };
   },
 };

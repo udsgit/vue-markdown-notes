@@ -14,8 +14,22 @@ export default createStore({
     setActiveNote: (state, noteId = null) => (state.activeNote = noteId),
     updateNote: (state, { id, body }) =>
       (state.notes.find((note) => note.id === id).body = body),
+    createNote: (state, note) => state.notes.unshift(note),
+    deleteNote: (state) => {
+      const index = state.notes.findIndex(
+        (note) => note.id === state.activeNote
+      );
+      state.notes.splice(index, 1);
+      state.activeNote = null;
+    },
   },
-  actions: {},
+  actions: {
+    createNote({ commit }) {
+      const note = { body: "", id: Date.now() };
+      commit("createNote", note);
+      commit("setActiveNote", note.id);
+    },
+  },
   modules: {},
   plugins: process.env.NODE_ENV !== "production" ? [createLogger()] : [],
 });

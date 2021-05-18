@@ -6,6 +6,7 @@
     class="
       p-3
       my-4
+      h-14
       |
       border-2 border-white
       bg-gray-300
