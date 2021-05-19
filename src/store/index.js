@@ -4,10 +4,17 @@ export default createStore({
   state: {
     notes: [],
     activeNote: null,
+    deleting: false,
   },
   getters: {
     getNoteById: (state) => (noteId) =>
       state.notes.find((note) => note.id === noteId),
+    getNoteTitle: (state) => (noteId) => {
+      const removeMd = require("remove-markdown");
+      const id = noteId ? noteId : state.activeNote;
+      const body = state.notes.find((note) => note.id === id).body;
+      return removeMd(body.substring(0, 20));
+    },
   },
   mutations: {
     setNotes: (state, notes) => (state.notes = notes),
@@ -21,7 +28,9 @@ export default createStore({
       );
       state.notes.splice(index, 1);
       state.activeNote = null;
+      state.deleting = false;
     },
+    setDeleting: (state, deleting) => (state.deleting = deleting),
   },
   actions: {
     createNote({ commit }) {
@@ -32,4 +41,5 @@ export default createStore({
   },
   modules: {},
   plugins: process.env.NODE_ENV !== "production" ? [createLogger()] : [],
+  struct: true,
 });

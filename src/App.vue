@@ -1,4 +1,5 @@
 <template>
+  <DeleteNote v-if="$store.state.deleting" />
   <div
     class="
       container
@@ -32,12 +33,14 @@
 <script>
 import NoteList from "./components/NoteList";
 import ActiveNote from "./components/ActiveNote";
+import DeleteNote from "./components/DeleteNote";
 
 export default {
   name: "App",
   components: {
     NoteList,
     ActiveNote,
+    DeleteNote,
   },
 };
 </script>
