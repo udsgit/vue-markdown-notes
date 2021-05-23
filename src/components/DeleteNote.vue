@@ -23,7 +23,7 @@
         <a
           class="underline m-3 text-red-700"
           href="#"
-          @click="$store.commit('deleteNote')"
+          @click="$store.dispatch('deleteNote')"
           >Yes</a
         >
         <a

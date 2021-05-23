@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "firebase": "^8.6.2",
+    "lodash": "^4.17.21",
     "marked": "^2.0.3",
     "remove-markdown": "^0.3.0",
     "vue": "^3.0.0",

@@ -11,7 +11,7 @@
 import { ref, onMounted, onUpdated } from "vue";
 export default {
   name: "ActiveNoteMd",
-  emits: ["update:body"],
+  emits: ["update:body", "blur-note"],
   props: {
     body: {
       type: String,
